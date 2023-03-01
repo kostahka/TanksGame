@@ -14,7 +14,7 @@ namespace Configure {
 	
 	void Init()
 	{
-		if (!tanksTexture.loadFromFile("../assets/tanks.png")) {
+		if (!tanksTexture.loadFromFile("assets/tanks.png")) {
 			std::cout << "Couldn't load texture";
 		}
 		else {

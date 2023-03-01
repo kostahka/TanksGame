@@ -1,5 +1,7 @@
 #include "Physics.h"
 
+#include <math.h>
+
 namespace Physics {
 	MapElement GameObjectMapCollision(sf::FloatRect A, Map & map) {
 		int left = floor(A.left / Configure::wallWidth);

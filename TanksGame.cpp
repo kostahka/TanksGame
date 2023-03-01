@@ -9,13 +9,6 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Tanks");
 
-    sf::Texture tanksTexture;
-    if (!tanksTexture.loadFromFile("../assets/tanks.png")) {
-        std::cout << "Couldn't load texture";
-    }
-    sf::Sprite allSprite;
-    allSprite.setTexture(tanksTexture);
-
     Configure::Init();
     IOManager* ioManager = IOManager::getCurrent();
     GameScene* gameScene = dynamic_cast<GameScene*>(GameScene::getCurrentScene());
