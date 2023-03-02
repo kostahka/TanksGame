@@ -27,6 +27,8 @@ set(PROJECT_SOURCES
 	"Configurations/Configure.cpp"
 	"GameObjects/DynamicObject.cpp"
 	"Managers/IOManager.cpp"
+	"Managers/TimeManager.cpp"
+	"Managers/TimeListener.cpp"
 
 	"TanksGame.h"
 	"GameObjects/Tank.h"
@@ -44,6 +46,8 @@ set(PROJECT_SOURCES
 	"Controllers/Controller.h"
 	"GameObjects/DynamicObject.h"
 	"Managers/IOManager.h"
+	"Managers/TimeManager.h"
+	"Managers/TimeListener.h"
 
 )
 

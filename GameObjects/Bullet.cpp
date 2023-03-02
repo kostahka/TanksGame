@@ -14,6 +14,14 @@ Bullet::Bullet(Direction direction, float speed, int damage, int lifeTime, float
 	}
 }
 
+void Bullet::TimeListen(int deltaTime)
+{
+	TimeListener::TimeListen(deltaTime);
+
+	if (time > lifeTime)
+		Destroy();
+}
+
 bool Bullet::Hurt(int damage)
 {
 	Destroy();
@@ -26,5 +34,5 @@ void Bullet::Destroy()
 	if (scene) {
 		scene->DeleteBullet(this);
 	}
-	GameObject::Destroy();
+	delete this;
 }

@@ -1,13 +1,24 @@
 #include "Gun.h"
 
 Gun::Gun()
-	:bulletDamage(Configure::bulletDamage), bulletLifeTime(Configure::bulletLifeTime), bulletSpeed(Configure::bulletSpeed)
+	:bulletDamage(Configure::bulletDamage), bulletLifeTime(Configure::bulletLifeTime), bulletSpeed(Configure::bulletSpeed),
+	reloadTime(Configure::gunReloadTime)
 {
 	
 }
 
+void Gun::TimeListen(int deltaTime)
+{
+	TimeListener::TimeListen(deltaTime);
+}
+
 void Gun::Shoot(Direction direction, float x, float y)
 {
+	if (time < reloadTime)
+		return;
+	
+	time = 0;
+
 	float correctX = x;
 	float correctY = y;
 	switch (direction)

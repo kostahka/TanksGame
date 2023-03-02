@@ -8,7 +8,7 @@ GameScene::GameScene()
 
 void GameScene::StartOnePlayer()
 {
-	Tank* tank = new Tank(50, 50);
+	Tank* tank = new Tank(100, 100);
 	PlayerController* player = new PlayerController(tank);
 }
 

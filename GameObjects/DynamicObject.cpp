@@ -4,23 +4,6 @@ DynamicObject::DynamicObject(Direction direction, float speed, float width, floa
 	:GameObject(width, height, maxHp, sprite, x, y, isImmortal), direction(direction), speed(speed), isMoving(false)
 {
 	startRect = sf::FloatRect(x, y, width, height);
-	switch (direction)
-	{
-	case Direction::Down:
-		sprite.setRotation(180.0f);
-		break;
-	case Direction::Up:
-		sprite.setRotation(0.0f);
-		break;
-	case Direction::Left:
-		sprite.setRotation(-90.0f);
-		break;
-	case Direction::Right:
-		sprite.setRotation(90.0f);
-		break;
-	default:
-		break;
-	}
 
 	setRotation(direction);
 }
@@ -32,19 +15,15 @@ void DynamicObject::Move(int deltaTime)
 	{
 	case Direction::Down:
 		rect.top += delta;
-		sprite.setRotation(180.0f);
 		break;
 	case Direction::Up:
 		rect.top -= delta;
-		sprite.setRotation(0.0f);
 		break;
 	case Direction::Left:
 		rect.left -= delta;
-		sprite.setRotation(-90.0f);
 		break;
 	case Direction::Right:
 		rect.left += delta;
-		sprite.setRotation(90.0f);
 		break;
 	default:
 		break;
@@ -96,5 +75,22 @@ void DynamicObject::setRotation(Direction direction)
 	else {
 		rect.width = startRect.width;
 		rect.height = startRect.height;
+	}
+	switch (direction)
+	{
+	case Direction::Down:
+		sprite.setRotation(180.0f);
+		break;
+	case Direction::Up:
+		sprite.setRotation(0.0f);
+		break;
+	case Direction::Left:
+		sprite.setRotation(-90.0f);
+		break;
+	case Direction::Right:
+		sprite.setRotation(90.0f);
+		break;
+	default:
+		break;
 	}
 }

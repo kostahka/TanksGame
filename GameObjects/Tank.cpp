@@ -16,6 +16,7 @@ void Tank::setDirection(MovingDirection direction)
 {
 	if (direction != MovingDirection::None) {
 		this->direction = Direction((int)direction);
+		setRotation(this->direction);
 		isMoving = true;
 	}
 	else {

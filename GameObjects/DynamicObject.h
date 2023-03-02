@@ -12,8 +12,9 @@ public:
 	bool getMoving() const;
 private:
 	sf::FloatRect startRect;
-	void setRotation(Direction direction);
+	
 protected:
+	void setRotation(Direction direction);
 	Direction direction;
 	bool isMoving;
 	float speed;
