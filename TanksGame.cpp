@@ -27,7 +27,7 @@ int main()
         std::cout << "Couldn't create scene";
         return -1;
     }
-    gameScene->StartOnePlayer();
+    gameScene->StartTwoPlayers();
 
 
     sf::Clock clock;

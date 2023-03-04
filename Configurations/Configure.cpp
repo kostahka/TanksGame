@@ -15,8 +15,21 @@ namespace Configure {
 
 	sf::Texture tanksTexture;
 
+	sf::Sprite explosionSprite;
+	sf::IntRect explosionSpriteRect = sf::IntRect(0, 64, 16, 16);
+	int explosionAnimationFrames = 5;
+	int explosionAnimationTime = 50;
+	int explosionLifeTime = explosionAnimationFrames * explosionAnimationTime;
+
+	sf::Sprite shootingSprite;
+	sf::IntRect shootingSpriteRect = sf::IntRect(0, 48, 16, 16);
+	int shootingAnimationFrames = 4;
+	int shootingAnimationTime = 50;
+
 	sf::Sprite tankSprite;
 	sf::IntRect tankTextureRect = sf::IntRect(0, 0, 16, 16);
+	int tankAnimationFrames = 5;
+	int tankAnimationTime = 50;
 	
 	sf::Sprite wallSprite;
 	sf::IntRect wallTextureRect = sf::IntRect(96, 16, 16, 16);
@@ -26,6 +39,10 @@ namespace Configure {
 
 	sf::Sprite floorSprite;
 	sf::IntRect floorTextureRect = sf::IntRect(144, 0, 16, 16);
+
+	float explosionWidth = 32.0f;
+
+	float shootingWidth = 48.0f;
 
 	float tankWidth = 48.0f;
 	int tankMaxHp = 100;
@@ -58,12 +75,20 @@ namespace Configure {
 			setSprite(wallSprite, wallTextureRect, wallWidth, wallWidth);
 			setSprite(bulletSprite, bulletTextureRect, bulletWidth, bulletHeight);
 			setSprite(floorSprite, floorTextureRect, wallWidth, wallWidth);
+			setSprite(shootingSprite, shootingSpriteRect, shootingWidth, shootingWidth);
+			setSprite(explosionSprite, explosionSpriteRect, explosionWidth, explosionWidth);
 		}
 	}
 
-	sf::Keyboard::Key playerUp = sf::Keyboard::Up;
-	sf::Keyboard::Key playerRight = sf::Keyboard::Right;
-	sf::Keyboard::Key playerDown = sf::Keyboard::Down;
-	sf::Keyboard::Key playerLeft = sf::Keyboard::Left;
+	sf::Keyboard::Key playerUp = sf::Keyboard::W;
+	sf::Keyboard::Key playerRight = sf::Keyboard::D;
+	sf::Keyboard::Key playerDown = sf::Keyboard::S;
+	sf::Keyboard::Key playerLeft = sf::Keyboard::A;
 	sf::Keyboard::Key playerShoot = sf::Keyboard::Space;
+
+	sf::Keyboard::Key playerSecondUp = sf::Keyboard::Up;
+	sf::Keyboard::Key playerSecondRight = sf::Keyboard::Right;
+	sf::Keyboard::Key playerSecondDown = sf::Keyboard::Down;
+	sf::Keyboard::Key playerSecondLeft = sf::Keyboard::Left;
+	sf::Keyboard::Key playerSecondShoot = sf::Keyboard::Numpad0;
 }

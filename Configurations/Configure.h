@@ -6,6 +6,22 @@
 namespace Configure {
 	void Init(sf::VideoMode videoMode);
 
+	extern sf::Sprite explosionSprite;
+	extern sf::IntRect explosionSpriteRect;
+	extern int explosionAnimationFrames;
+	extern int explosionAnimationTime;
+	extern int explosionLifeTime;
+
+	extern sf::Sprite shootingSprite;
+	extern sf::IntRect shootingSpriteRect;
+	extern int shootingAnimationFrames;
+	extern int shootingAnimationTime;
+
+	extern int tankAnimationFrames;
+	extern int tankAnimationTime;
+
+	extern sf::IntRect tankTextureRect;
+
 	extern sf::Texture tanksTexture;
 	extern sf::Sprite tankSprite;
 	extern sf::Sprite wallSprite;
@@ -17,7 +33,17 @@ namespace Configure {
 	extern sf::Keyboard::Key playerDown;
 	extern sf::Keyboard::Key playerLeft;
 	extern sf::Keyboard::Key playerShoot;
+
+	extern sf::Keyboard::Key playerSecondUp;
+	extern sf::Keyboard::Key playerSecondRight;
+	extern sf::Keyboard::Key playerSecondDown;
+	extern sf::Keyboard::Key playerSecondLeft;
+	extern sf::Keyboard::Key playerSecondShoot;
 	
+	extern float explosionWidth;
+
+	extern float shootingWidth;
+
 	extern float tankWidth;
 	extern int tankMaxHp;
 	extern float tankSpeed;

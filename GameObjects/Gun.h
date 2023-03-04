@@ -10,7 +10,7 @@ public:
 	Gun();
 
 	void TimeListen(int deltaTime) override;
-
+	bool canShoot();
 	void Shoot(Direction direction, float x, float y);
 private:
 	float bulletSpeed;

@@ -9,7 +9,15 @@ GameScene::GameScene()
 void GameScene::StartOnePlayer()
 {
 	Tank* tank = new Tank(100, 100);
-	PlayerController* player = new PlayerController(tank);
+	PlayerController* player = new PlayerController(tank, PlayerType::FirstPlayer);
+}
+
+void GameScene::StartTwoPlayers()
+{
+	Tank* tank = new Tank(100, 100);
+	PlayerController* player = new PlayerController(tank, PlayerType::FirstPlayer);
+	Tank* secondTank = new Tank(600, 500);
+	PlayerController* secondPlayer = new PlayerController(secondTank, PlayerType::SecondPlayer);
 }
 
 void GameScene::Draw(sf::RenderWindow& window, int deltaTime)
@@ -18,6 +26,10 @@ void GameScene::Draw(sf::RenderWindow& window, int deltaTime)
 
 	//Draw
 	map.Draw(window);
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->Draw(window);
+	}
+
 	for (int i = 0; i < tanks.size(); i++) {
 		tanks[i]->Draw(window);
 	}
@@ -41,6 +53,11 @@ void GameScene::AddController(Controller* controller)
 	controllers.push_back(controller);
 }
 
+void GameScene::AddParticle(Particles* particle)
+{
+	particles.push_back(particle);
+}
+
 void GameScene::DeleteBullet(Bullet* bullet)
 {
 	bullets.erase(std::remove(bullets.begin(), bullets.end(), bullet));
@@ -60,4 +77,9 @@ void GameScene::DeleteTank(Tank* tank)
 void GameScene::DeleteController(Controller* controller)
 {
 	controllers.erase(std::remove(controllers.begin(), controllers.end(), controller));
+}
+
+void GameScene::DeleteParticle(Particles* particle)
+{
+	particles.erase(std::remove(particles.begin(), particles.end(), particle));
 }

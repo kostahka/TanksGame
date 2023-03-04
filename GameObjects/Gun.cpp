@@ -12,11 +12,13 @@ void Gun::TimeListen(int deltaTime)
 	TimeListener::TimeListen(deltaTime);
 }
 
-void Gun::Shoot(Direction direction, float x, float y)
+bool Gun::canShoot()
 {
-	if (time < reloadTime)
-		return;
-	
+	return time > reloadTime;
+}
+
+void Gun::Shoot(Direction direction, float x, float y)
+{	
 	time = 0;
 
 	float correctX = x;

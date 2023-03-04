@@ -41,7 +41,8 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 
 			sf::FloatRect newRect = tanks[i]->getMoved(deltaTime);
 			MapElement element = GameObjectMapCollision(newRect, map);
-			for (int j = i + 1; j < tanks.size(); j++) {
+			for (int j = 0; j < tanks.size(); j++) {
+				if(i != j)
 				if (GameObjectsCollision(newRect, tanks[j]->rect)) {
 					move = false;
 					break;

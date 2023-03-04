@@ -4,9 +4,13 @@
 #include "Controller.h"
 #include "SFML/System.hpp"
 
+enum class PlayerType {
+	FirstPlayer, SecondPlayer
+};
+
 class PlayerController : Controller{
 public:
-	PlayerController(Tank* tank);
+	PlayerController(Tank* tank, PlayerType type);
 
 	void Destroy() override;
 

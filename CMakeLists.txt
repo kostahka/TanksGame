@@ -29,6 +29,9 @@ set(PROJECT_SOURCES
 	"Managers/IOManager.cpp"
 	"Managers/TimeManager.cpp"
 	"Managers/TimeListener.cpp"
+	"Animation/Animation.cpp"
+	"Particles/Explosion.cpp"
+	"Particles/Particles.cpp"
 
 	"TanksGame.h"
 	"GameObjects/Tank.h"
@@ -48,6 +51,9 @@ set(PROJECT_SOURCES
 	"Managers/IOManager.h"
 	"Managers/TimeManager.h"
 	"Managers/TimeListener.h"
+	"Animation/Animation.h"
+	"Particles/Explosion.h"
+	"Particles/Particles.h"
 
 )
 

@@ -29,9 +29,19 @@ void DynamicObject::Move(int deltaTime)
 		break;
 	}
 
-	setRotation(direction);
-
 	sprite.setPosition(rect.left + rect.width / 2, rect.top + rect.height / 2);
+}
+
+void DynamicObject::setDirection(MovingDirection direction)
+{
+	if (direction != MovingDirection::None) {
+		this->direction = Direction((int)direction);
+		setRotation(this->direction);
+		isMoving = true;
+	}
+	else {
+		isMoving = false;
+	}
 }
 
 sf::FloatRect DynamicObject::getMoved(int deltaTime) const

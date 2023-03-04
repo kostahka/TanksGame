@@ -2,14 +2,24 @@
 
 #include "../Managers/IOManager.h"
 
-PlayerController::PlayerController(Tank* tank)
+PlayerController::PlayerController(Tank* tank, PlayerType type)
 	:Controller(tank)
 {
-	up = Configure::playerUp;
-	right = Configure::playerRight;
-	down = Configure::playerDown;
-	left = Configure::playerLeft;
-	shoot = Configure::playerShoot;
+	if (type == PlayerType::FirstPlayer) {
+		up = Configure::playerUp;
+		right = Configure::playerRight;
+		down = Configure::playerDown;
+		left = Configure::playerLeft;
+		shoot = Configure::playerShoot;
+	}
+	else {
+		up = Configure::playerSecondUp;
+		right = Configure::playerSecondRight;
+		down = Configure::playerSecondDown;
+		left = Configure::playerSecondLeft;
+		shoot = Configure::playerSecondShoot;
+	}
+	
 
 	IOManager* manager = dynamic_cast<IOManager*>(IOManager::getCurrent());
 	if (manager) {
@@ -39,20 +49,22 @@ void PlayerController::ControlEvent(sf::Event event)
 
 void PlayerController::ControlLoop()
 {
-	if (sf::Keyboard::isKeyPressed(up)) {
-		tank->setDirection(MovingDirection::Up);
-	}
-	else if (sf::Keyboard::isKeyPressed(right)) {
-		tank->setDirection(MovingDirection::Right);
-	}
-	else if (sf::Keyboard::isKeyPressed(down)) {
-		tank->setDirection(MovingDirection::Down);
-	}
-	else if (sf::Keyboard::isKeyPressed(left)) {
-		tank->setDirection(MovingDirection::Left);
-	}
-	else {
-		tank->setDirection(MovingDirection::None);
+	if (tank) {
+		if (sf::Keyboard::isKeyPressed(up)) {
+			tank->setDirection(MovingDirection::Up);
+		}
+		else if (sf::Keyboard::isKeyPressed(right)) {
+			tank->setDirection(MovingDirection::Right);
+		}
+		else if (sf::Keyboard::isKeyPressed(down)) {
+			tank->setDirection(MovingDirection::Down);
+		}
+		else if (sf::Keyboard::isKeyPressed(left)) {
+			tank->setDirection(MovingDirection::Left);
+		}
+		else {
+			tank->setDirection(MovingDirection::None);
+		}
 	}
 }
 

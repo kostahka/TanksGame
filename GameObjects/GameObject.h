@@ -8,7 +8,7 @@ public:
 	GameObject(float width, float height, int maxHp, sf::Sprite sprite, float x = 0, float y = 0, bool isImmortal = false);
 	
 	virtual bool Hurt(int damage = 0);
-	void Draw(sf::RenderWindow& window);
+	virtual void Draw(sf::RenderWindow& window);
 
 	sf::FloatRect rect;
 	
@@ -20,8 +20,6 @@ private:
 	int maxHp;
 
 	bool isImmortal;
-
-	//bool isStatic;
 protected:
 	sf::Sprite sprite;
 	virtual void Destroy();
