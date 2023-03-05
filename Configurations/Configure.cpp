@@ -15,6 +15,10 @@ namespace Configure {
 
 	sf::Texture tanksTexture;
 
+	sf::IntRect spawnerSpriteRect = sf::IntRect(96, 48, 16, 16);
+	int spawnerAnimationFrames = 4;
+	int spawnerAnimationTime = 50;
+
 	sf::Sprite explosionSprite;
 	sf::IntRect explosionSpriteRect = sf::IntRect(0, 64, 16, 16);
 	int explosionAnimationFrames = 5;
@@ -28,6 +32,8 @@ namespace Configure {
 
 	sf::Sprite tankSprite;
 	sf::IntRect tankTextureRect = sf::IntRect(0, 0, 16, 16);
+	sf::IntRect secondTankTextureRect = sf::IntRect(0, 32, 16, 16);
+	sf::IntRect enemyTankTextureRect = sf::IntRect(0, 16, 16, 16);
 	int tankAnimationFrames = 5;
 	int tankAnimationTime = 50;
 	
@@ -39,6 +45,8 @@ namespace Configure {
 
 	sf::Sprite floorSprite;
 	sf::IntRect floorTextureRect = sf::IntRect(144, 0, 16, 16);
+
+	int timeToSpawn = 4000;
 
 	float explosionWidth = 32.0f;
 
@@ -59,17 +67,19 @@ namespace Configure {
 
 	int gunReloadTime = 500;
 
-	int mapWidth = 40;
+	int mapWidth = 50;
 	int mapHeight = 30;
 	
-	void Init(sf::VideoMode videoMode)
+	void Init(sf::RenderWindow& window)
 	{
 		if (!tanksTexture.loadFromFile("assets/tanks.png")) {
 			std::cout << "Couldn't load texture";
 		}
 		else {
-			mapWidth = videoMode.width / wallWidth;
-			mapHeight = videoMode.height / wallWidth;
+			sf::View view = window.getView();
+			view.setSize(mapWidth * wallWidth, mapHeight * wallWidth);
+			view.setCenter(sf::Vector2f(mapWidth * wallWidth / 2, mapHeight * wallWidth / 2));
+			window.setView(view);
 
 			setSprite(tankSprite, tankTextureRect, tankWidth, tankWidth);
 			setSprite(wallSprite, wallTextureRect, wallWidth, wallWidth);
@@ -91,4 +101,6 @@ namespace Configure {
 	sf::Keyboard::Key playerSecondDown = sf::Keyboard::Down;
 	sf::Keyboard::Key playerSecondLeft = sf::Keyboard::Left;
 	sf::Keyboard::Key playerSecondShoot = sf::Keyboard::Numpad0;
+
+	sf::Keyboard::Key gameRestart = sf::Keyboard::R;
 }

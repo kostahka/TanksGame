@@ -9,8 +9,11 @@
 #include "../General/Physics.h"
 #include "../Controllers/Controller.h"
 #include "../Particles/Particles.h"
+#include "../Managers/IOListener.h"
+#include "../GameObjects/Spawner.h"
+#include "../General/TankType.h"
 
-class GameScene : public Scene {
+class GameScene : public Scene , public IOListener{
 public:
 	static Scene* getCurrentScene() {
 		if (!current)
@@ -18,6 +21,8 @@ public:
 		return current;
 	};
 	
+	void ControlEvent(sf::Event event) override;
+	void ControlLoop() override;
 
 	void StartOnePlayer();
 	void StartTwoPlayers();
@@ -27,18 +32,26 @@ public:
 	void AddTank(Tank* tank);
 	void AddController(Controller* controller);
 	void AddParticle(Particles* particle);
+	void AddSpawner(Spawner* spawner);
 
 	void DeleteBullet(Bullet* bullet);
 	void DeleteTank(Tank* tank);
 	void DeleteController(Controller* controller);
 	void DeleteParticle(Particles* particle);
+	void DeleteSpawner(Spawner* spawner);
 
 private:
+	void SpawnTank(Controller* controller);
+	void Restart();
+
 	std::vector<Particles*> particles;
 	std::vector<Controller*> controllers;
 	std::vector<Tank*> tanks;
 	std::vector<Bullet*> bullets;
+	std::vector<Spawner*> spawners;
 	Map map;
+
+	sf::Keyboard::Key restart;
 protected:
 	GameScene();
 };

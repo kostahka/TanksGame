@@ -13,6 +13,8 @@ public:
 	sf::FloatRect rect;
 	
 	int getHp() const;
+
+	virtual void Destroy();
 private:
 	
 
@@ -22,5 +24,4 @@ private:
 	bool isImmortal;
 protected:
 	sf::Sprite sprite;
-	virtual void Destroy();
 };

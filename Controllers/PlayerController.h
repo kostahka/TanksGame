@@ -3,19 +3,18 @@
 #include "../GameObjects/Tank.h"
 #include "Controller.h"
 #include "SFML/System.hpp"
+#include "../Managers/IOListener.h"
 
 enum class PlayerType {
 	FirstPlayer, SecondPlayer
 };
 
-class PlayerController : Controller{
+class PlayerController : public Controller, public IOListener{
 public:
-	PlayerController(Tank* tank, PlayerType type);
+	PlayerController(PlayerType type, Tank* tank = nullptr);
 
-	void Destroy() override;
-
-	void ControlEvent(sf::Event event);
-	void ControlLoop();
+	void ControlEvent(sf::Event event) override;
+	void ControlLoop() override;
 private:
 
 	sf::Keyboard::Key up;

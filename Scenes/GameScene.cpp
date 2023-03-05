@@ -3,31 +3,47 @@
 #include "../Controllers/PlayerController.h"
 
 GameScene::GameScene()
+	:restart(Configure::gameRestart)
+{
+}
+
+void GameScene::ControlEvent(sf::Event event)
+{
+	if (event.type == sf::Event::KeyPressed && event.key.code == restart) {
+		Restart();
+	}
+}
+
+void GameScene::ControlLoop()
 {
 }
 
 void GameScene::StartOnePlayer()
 {
-	Tank* tank = new Tank(100, 100);
-	PlayerController* player = new PlayerController(tank, PlayerType::FirstPlayer);
+	PlayerController* player = new PlayerController(PlayerType::FirstPlayer);
+	SpawnTank(player);
 }
 
 void GameScene::StartTwoPlayers()
 {
-	Tank* tank = new Tank(100, 100);
-	PlayerController* player = new PlayerController(tank, PlayerType::FirstPlayer);
-	Tank* secondTank = new Tank(600, 500);
-	PlayerController* secondPlayer = new PlayerController(secondTank, PlayerType::SecondPlayer);
+	PlayerController* player = new PlayerController(PlayerType::FirstPlayer);
+	SpawnTank(player);
+	PlayerController* secondPlayer = new PlayerController(PlayerType::SecondPlayer);
+	SpawnTank(secondPlayer);
 }
 
 void GameScene::Draw(sf::RenderWindow& window, int deltaTime)
 {
-	Physics::CalculatePhysics(map, tanks, bullets, deltaTime);
+	Physics::CalculatePhysics(map, tanks, bullets, spawners, deltaTime);
 
 	//Draw
 	map.Draw(window);
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i]->Draw(window);
+	}
+
+	for (int i = 0; i < spawners.size(); i++) {
+		spawners[i]->Draw(window);
 	}
 
 	for (int i = 0; i < tanks.size(); i++) {
@@ -58,6 +74,11 @@ void GameScene::AddParticle(Particles* particle)
 	particles.push_back(particle);
 }
 
+void GameScene::AddSpawner(Spawner* spawner)
+{
+	spawners.push_back(spawner);
+}
+
 void GameScene::DeleteBullet(Bullet* bullet)
 {
 	bullets.erase(std::remove(bullets.begin(), bullets.end(), bullet));
@@ -70,6 +91,7 @@ void GameScene::DeleteTank(Tank* tank)
 	for (int i = 0; i < controllers.size(); i++) {
 		if (controllers[i]->tank == tank) {
 			controllers[i]->tank = nullptr;
+			SpawnTank(controllers[i]);
 		}
 	}
 }
@@ -82,4 +104,29 @@ void GameScene::DeleteController(Controller* controller)
 void GameScene::DeleteParticle(Particles* particle)
 {
 	particles.erase(std::remove(particles.begin(), particles.end(), particle));
+}
+
+void GameScene::DeleteSpawner(Spawner* spawner)
+{
+	spawners.erase(std::remove(spawners.begin(), spawners.end(), spawner));
+}
+
+void GameScene::SpawnTank(Controller* controller)
+{
+	Spawner* spawner = new Spawner(controller, map.getRandomPlaceToSpawn());
+}
+
+void GameScene::Restart()
+{
+	map = Map();
+	for (int i = 0; i < spawners.size(); i++) {
+		spawners[i]->Restart(map.getRandomPlaceToSpawn());
+	}
+
+	while (tanks.size() > 0) {
+		tanks[0]->Destroy();
+	}
+	while (bullets.size() > 0) {
+		bullets[0]->Destroy();
+	}
 }

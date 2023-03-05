@@ -1,5 +1,7 @@
 #include "Map.h"
 
+#include <math.h>
+
 Map::Map()
 	:width(Configure::mapWidth), height(Configure::mapHeight)
 {
@@ -58,6 +60,38 @@ void Map::Hurt(int damage, int row, int column)
 		walls[row][column] = nullptr;
 		map[row][column] = false;
 	}
+}
+
+sf::Vector2f Map::getRandomPlaceToSpawn()
+{
+	int step = ceil(Configure::tankWidth / Configure::wallWidth);
+	int randPlace = rand() % (width * height / step);
+	while (randPlace > 0) {
+		for (int i = 0; i < height - step; i++) {
+			for (int j = 0; j < width - step; j++) {
+				bool canPlace = true;
+				for (int r = i; r < i + step; r++) {
+					for (int c = j; c < j + step; c++) {
+						if (walls[r][c]) {
+							canPlace = false;
+							break;
+						}
+					}
+					if (!canPlace)
+						break;
+				}
+				if (canPlace)
+				{
+					randPlace--;
+					if (randPlace <= 0) {
+						float delta = (Configure::wallWidth * step - Configure::tankWidth) / 2;
+						return sf::Vector2f(j * Configure::wallWidth + delta, i * Configure::wallWidth + delta);
+					}
+				}
+			}
+		}
+	}
+	return sf::Vector2f();
 }
 
 Wall& Map::operator()(int row, int column)

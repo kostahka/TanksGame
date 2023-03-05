@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
 	"Animation/Animation.cpp"
 	"Particles/Explosion.cpp"
 	"Particles/Particles.cpp"
+	"Managers/IOListener.cpp"
+	"GameObjects/Spawner.cpp"
 
 	"TanksGame.h"
 	"GameObjects/Tank.h"
@@ -54,6 +56,8 @@ set(PROJECT_SOURCES
 	"Animation/Animation.h"
 	"Particles/Explosion.h"
 	"Particles/Particles.h"
+	"Managers/IOListener.h"
+	"GameObjects/Spawner.h"
 
 )
 

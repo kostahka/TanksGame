@@ -2,15 +2,33 @@
 
 #include "../Scenes/GameScene.h"
 
-Tank::Tank(float x, float y)
+Tank::Tank(TankType type, float x, float y)
 	:DynamicObject(Direction::Up, Configure::tankSpeed, Configure::tankWidth, Configure::tankWidth, Configure::tankMaxHp,
 		Configure::tankSprite, x, y), 
-		animation(Animation(Configure::tanksTexture, Configure::tankTextureRect, Configure::tankWidth, Configure::tankWidth,
+		animation(Animation(Configure::tanksTexture, Configure::tankTextureRect,
+			Configure::tankWidth, Configure::tankWidth,
 			Configure::tankAnimationFrames, Configure::tankAnimationTime)),
 		shooting(Configure::shootingSprite),
 		shootingAnimation(Animation(Configure::tanksTexture, Configure::shootingSpriteRect, Configure::shootingWidth,
 			Configure::shootingWidth, Configure::shootingAnimationFrames, Configure::shootingAnimationTime))
 {
+	sf::IntRect textureRect;
+	switch (type)
+	{
+	case TankType::First:
+		textureRect = Configure::tankTextureRect;
+		break;
+	case TankType::Second:
+		textureRect = Configure::secondTankTextureRect;
+		break;
+	case TankType::Enemy:
+		textureRect = Configure::enemyTankTextureRect;
+		break;
+	default:
+		break;
+	}
+	animation.SetTextureRect(textureRect, rect.width, rect.height);
+
 	shootingAnimation.Hide();
 	GameScene* scene = dynamic_cast<GameScene*>(GameScene::getCurrentScene());
 	if (scene) {

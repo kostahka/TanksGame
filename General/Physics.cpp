@@ -33,7 +33,8 @@ namespace Physics {
 	}
 }
 
-void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<Bullet*>& bullets, int deltaTime)
+void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<Bullet*>& bullets, std::vector<Spawner*> spawners,
+	int deltaTime)
 {
 	for (int i = 0; i < tanks.size(); i++) {
 		if (tanks[i]->getMoving()) {
@@ -41,15 +42,25 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 
 			sf::FloatRect newRect = tanks[i]->getMoved(deltaTime);
 			MapElement element = GameObjectMapCollision(newRect, map);
-			for (int j = 0; j < tanks.size(); j++) {
-				if(i != j)
-				if (GameObjectsCollision(newRect, tanks[j]->rect)) {
-					move = false;
-					break;
+			if (!element.collide) {
+				for (int j = 0; j < tanks.size(); j++) {
+					if (i != j)
+						if (GameObjectsCollision(newRect, tanks[j]->rect)) {
+							move = false;
+							break;
+						}
 				}
+				if (move) {
+					for (int j = 0; j < spawners.size(); j++) {
+						if (GameObjectsCollision(newRect, spawners[j]->rect)) {
+							move = false;
+							break;
+						}
+					}
+				}
+				if (move)
+					tanks[i]->Move(deltaTime);
 			}
-			if(move && !element.collide)
-				tanks[i]->Move(deltaTime);
 		}
 	}
 	int i = 0;
@@ -65,17 +76,28 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 			continue;
 		}
 
-		auto tankIt = tanks.begin();
-		while (tankIt != tanks.end()) {
-			if (GameObjectsCollision(bullets[i]->rect, (*tankIt)->rect)) {
-				(*tankIt)->Hurt(bullets[i]->getHp());
+		bool collision = false;
+		for (int j = 0; j < tanks.size(); j++) {
+			if (GameObjectsCollision(bullets[i]->rect, tanks[j]->rect)) {
+				tanks[j]->Hurt(bullets[i]->getHp());
 
 				bullets[i]->Hurt();
-				i--;
+				collision = true;
 				break;
 			}
-			tankIt++;
 		}
+		if (collision)
+			continue;
+
+		for (int j = 0; j < spawners.size(); j++) {
+			if (GameObjectsCollision(bullets[i]->rect, spawners[j]->rect)) {
+				bullets[i]->Hurt();
+				collision = true;
+				break;
+			}
+		}
+		if (collision)
+			continue;
 		i++;
 	}
 }

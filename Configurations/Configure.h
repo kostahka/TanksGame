@@ -4,7 +4,11 @@
 #include <iostream>
 
 namespace Configure {
-	void Init(sf::VideoMode videoMode);
+	void Init(sf::RenderWindow& window);
+
+	extern sf::IntRect spawnerSpriteRect;
+	extern int spawnerAnimationFrames;
+	extern int spawnerAnimationTime;
 
 	extern sf::Sprite explosionSprite;
 	extern sf::IntRect explosionSpriteRect;
@@ -21,6 +25,8 @@ namespace Configure {
 	extern int tankAnimationTime;
 
 	extern sf::IntRect tankTextureRect;
+	extern sf::IntRect secondTankTextureRect;
+	extern sf::IntRect enemyTankTextureRect;
 
 	extern sf::Texture tanksTexture;
 	extern sf::Sprite tankSprite;
@@ -39,7 +45,11 @@ namespace Configure {
 	extern sf::Keyboard::Key playerSecondDown;
 	extern sf::Keyboard::Key playerSecondLeft;
 	extern sf::Keyboard::Key playerSecondShoot;
+
+	extern sf::Keyboard::Key gameRestart;
 	
+	extern int timeToSpawn;
+
 	extern float explosionWidth;
 
 	extern float shootingWidth;

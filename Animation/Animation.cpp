@@ -7,14 +7,7 @@ Animation::Animation(sf::Texture& texture, sf::IntRect& frame, float width, floa
 	isOneShot = false;
 	isPlaying = false;
 	currentFrame = 0;
-	float scaleW = width / frame.width;
-	float scaleH = height / frame.height;
-	for (int i = 0; i < frames; i++) {
-		sf::IntRect frameRect = sf::IntRect(frame.left + i * frame.width, frame.top, frame.width, frame.height);
-		sprites.push_back(sf::Sprite(texture, frameRect));
-		sprites[i].setOrigin(frame.width / 2, frame.height / 2);
-		sprites[i].setScale(scaleW, scaleH);
-	}
+	SetTextureRect(frame, width, height);
 }
 
 void Animation::TimeListen(int deltaTime)
@@ -72,4 +65,24 @@ void Animation::PlayOneShot()
 	isPlaying = true;
 	isHiding = false;
 	isOneShot = true;
+}
+
+void Animation::SetTextureRect(sf::IntRect& frame, float width, float height)
+{
+	sprites.clear();
+	float scaleW = width / frame.width;
+	float scaleH = height / frame.height;
+	for (int i = 0; i < frames; i++) {
+		sf::IntRect frameRect = sf::IntRect(frame.left + i * frame.width, frame.top, frame.width, frame.height);
+		sprites.push_back(sf::Sprite(*texture, frameRect));
+		sprites[i].setOrigin(frame.width / 2, frame.height / 2);
+		sprites[i].setScale(scaleW, scaleH);
+	}
+}
+
+void Animation::SetColor(sf::Color color)
+{
+	for (int i = 0; i < sprites.size(); i++) {
+		sprites[i].setColor(color);
+	}
 }

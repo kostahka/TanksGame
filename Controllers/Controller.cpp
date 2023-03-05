@@ -2,8 +2,8 @@
 
 #include "../Scenes/GameScene.h"
 
-Controller::Controller(Tank* tank)
-	:tank(tank)
+Controller::Controller(TankType type, Tank* tank)
+	:tank(tank), type(type)
 {
 	GameScene* scene = dynamic_cast<GameScene*>(GameScene::getCurrentScene());
 	if (scene) {

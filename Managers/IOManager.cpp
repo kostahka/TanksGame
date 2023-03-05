@@ -12,28 +12,28 @@ IOManager* IOManager::getCurrent()
 
 void IOManager::KeyboardEvent(sf::Event event)
 {
-	for (int i = 0; i < playerControllers.size(); i++)
+	for (int i = 0; i < listeners.size(); i++)
 	{
-		playerControllers[i]->ControlEvent(event);
+		listeners[i]->ControlEvent(event);
 	}
 }
 
 void IOManager::InputLoop()
 {
-	for (int i = 0; i < playerControllers.size(); i++)
+	for (int i = 0; i < listeners.size(); i++)
 	{
-		playerControllers[i]->ControlLoop();
+		listeners[i]->ControlLoop();
 	}
 }
 
-void IOManager::AddPlayerController(PlayerController* controller)
+void IOManager::AddListener(IOListener* listener)
 {
-	playerControllers.push_back(controller);
+	listeners.push_back(listener);
 }
 
-void IOManager::DeletePlayerController(PlayerController* controller)
+void IOManager::DeleteListener(IOListener* listener)
 {
-	playerControllers.erase(std::remove(playerControllers.begin(), playerControllers.end(), controller));
+	listeners.erase(std::remove(listeners.begin(), listeners.end(), listener));
 }
 
 IOManager::IOManager() {

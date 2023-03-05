@@ -17,6 +17,9 @@ public:
 	void Replay();
 	void Hide();
 	void PlayOneShot();
+
+	void SetTextureRect(sf::IntRect& frame, float width, float height);
+	void SetColor(sf::Color color);
 private:
 	sf::Texture* texture;
 	sf::IntRect frame;

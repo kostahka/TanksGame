@@ -8,6 +8,7 @@
 
 int main()
 {
+    srand(time(NULL));
     std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 
     if (modes.size() <= 0) {
@@ -19,7 +20,7 @@ int main()
 
     sf::RenderWindow window(currentMode, "Tanks", sf::Style::Fullscreen);
 
-    Configure::Init(currentMode);
+    Configure::Init(window);
     TimeManager* timeManager = TimeManager::getCurrent();
     IOManager* ioManager = IOManager::getCurrent();
     GameScene* gameScene = dynamic_cast<GameScene*>(GameScene::getCurrentScene());

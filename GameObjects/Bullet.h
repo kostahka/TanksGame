@@ -10,8 +10,10 @@ public:
 	void TimeListen(int deltaTime) override;
 
 	bool Hurt(int damage = 0) override;
+
+	void Destroy() override;
 private:
 	int lifeTime;
 protected:
-	void Destroy() override;
+	
 };

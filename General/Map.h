@@ -19,6 +19,8 @@ public:
 
 	void Hurt(int damage, int row, int column);
 
+	sf::Vector2f getRandomPlaceToSpawn();
+
 	Wall& operator() (int row, int column);
 	bool* operator[] (int row);
 private:
