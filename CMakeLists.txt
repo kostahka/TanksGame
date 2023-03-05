@@ -34,7 +34,8 @@ set(PROJECT_SOURCES
 	"Particles/Particles.cpp"
 	"Managers/IOListener.cpp"
 	"GameObjects/Spawner.cpp"
-
+	"GUI/HealthBar.cpp"
+	
 	"TanksGame.h"
 	"GameObjects/Tank.h"
 	"GameObjects/Bullet.h"
@@ -58,10 +59,13 @@ set(PROJECT_SOURCES
 	"Particles/Particles.h"
 	"Managers/IOListener.h"
 	"GameObjects/Spawner.h"
+	"GUI/HealthBar.h"
 
 )
 
 add_executable(game ${PROJECT_SOURCES})
+
+target_include_directories(game PRIVATE "include/")
 
 add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory

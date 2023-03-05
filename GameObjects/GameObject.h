@@ -14,14 +14,14 @@ public:
 	
 	int getHp() const;
 
+	void SetSprite(sf::Sprite sprite);
+
 	virtual void Destroy();
 private:
-	
-
-	int hp;
-	int maxHp;
 
 	bool isImmortal;
 protected:
+	int hp;
+	int maxHp;
 	sf::Sprite sprite;
 };

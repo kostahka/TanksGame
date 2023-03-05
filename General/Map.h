@@ -12,14 +12,20 @@ struct MapElement {
 class Map {
 public:
 	Map();
+	~Map();
+
+	void GenerateMap();
 
 	int getWidth() const;
 	int getHeight() const;
 	void Draw(sf::RenderWindow& window);
+	void DrawForeGround(sf::RenderWindow& window);
 
 	void Hurt(int damage, int row, int column);
 
 	sf::Vector2f getRandomPlaceToSpawn();
+
+	bool getSea(int row, int column);
 
 	Wall& operator() (int row, int column);
 	bool* operator[] (int row);
@@ -29,5 +35,6 @@ private:
 
 	sf::Sprite floor;
 	Wall*** walls;
+	bool** sea;
 	bool** map;
 };

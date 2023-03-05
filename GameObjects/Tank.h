@@ -4,6 +4,7 @@
 #include "Gun.h"
 #include "../Animation/Animation.h"
 #include "../General/TankType.h"
+#include "../GUI/HealthBar.h"
 
 class Tank : public DynamicObject{
 public:
@@ -14,6 +15,7 @@ public:
 	void Move(int deltaTime) override;
 
 	void Shoot();
+	bool Hurt(int damage) override;
 
 	void Destroy() override;
 private:
@@ -22,6 +24,8 @@ private:
 	Animation shootingAnimation;
 	Animation animation;
 	Gun gun;
+
+	HealthBar healthBar;
 protected:
 	
 };

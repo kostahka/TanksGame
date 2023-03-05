@@ -52,6 +52,7 @@ void GameScene::Draw(sf::RenderWindow& window, int deltaTime)
 	for (int i = 0; i < bullets.size(); i++) {
 		bullets[i]->Draw(window);
 	}
+	map.DrawForeGround(window);
 }
 
 void GameScene::AddBullet(Bullet* bullet)
@@ -118,7 +119,7 @@ void GameScene::SpawnTank(Controller* controller)
 
 void GameScene::Restart()
 {
-	map = Map();
+	map.GenerateMap();
 	for (int i = 0; i < spawners.size(); i++) {
 		spawners[i]->Restart(map.getRandomPlaceToSpawn());
 	}

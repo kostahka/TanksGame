@@ -10,8 +10,11 @@ Tank::Tank(TankType type, float x, float y)
 			Configure::tankAnimationFrames, Configure::tankAnimationTime)),
 		shooting(Configure::shootingSprite),
 		shootingAnimation(Animation(Configure::tanksTexture, Configure::shootingSpriteRect, Configure::shootingWidth,
-			Configure::shootingWidth, Configure::shootingAnimationFrames, Configure::shootingAnimationTime))
+			Configure::shootingWidth, Configure::shootingAnimationFrames, Configure::shootingAnimationTime)),
+	healthBar(HealthBar(sf::Vector2f(x, y)))
 {
+	healthBar.SetPosition(sf::Vector2f(rect.left + rect.width / 2, rect.top - rect.height));
+
 	sf::IntRect textureRect;
 	switch (type)
 	{
@@ -42,6 +45,7 @@ void Tank::Draw(sf::RenderWindow& window)
 	//GameObject::Draw(window);
 	animation.Draw(window, sprite);
 	shootingAnimation.Draw(window, shooting);
+	healthBar.Draw(window);
 }
 
 void Tank::Shoot()
@@ -70,6 +74,18 @@ void Tank::Shoot()
 			break;
 		}
 		gun.Shoot(direction, x, y);
+	}
+}
+
+bool Tank::Hurt(int damage)
+{
+	if (!GameObject::Hurt(damage)) {
+		healthBar.SetPercentage(100 * hp / maxHp);
+		return false;
+	}
+	else
+	{
+		return true;
 	}
 }
 
@@ -120,4 +136,6 @@ void Tank::setDirection(MovingDirection direction)
 void Tank::Move(int deltaTime)
 {
 	DynamicObject::Move(deltaTime);
+
+	healthBar.SetPosition(sf::Vector2f(rect.left + rect.width / 2, rect.top - rect.height));
 }

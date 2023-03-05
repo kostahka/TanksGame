@@ -15,6 +15,13 @@ namespace Configure {
 
 	sf::Texture tanksTexture;
 
+	sf::Sprite healthBarSprite;
+	sf::IntRect healthBarTextureRect = sf::IntRect(96, 32, 32, 16);
+	sf::Sprite healthGreenSprite;
+	sf::IntRect healthGreenTextureRect = sf::IntRect(128, 32, 16, 16);
+	sf::Sprite healthRedSprite;
+	sf::IntRect healthRedTextureRect = sf::IntRect(144, 32, 16, 16);
+
 	sf::IntRect spawnerSpriteRect = sf::IntRect(96, 48, 16, 16);
 	int spawnerAnimationFrames = 4;
 	int spawnerAnimationTime = 50;
@@ -39,6 +46,12 @@ namespace Configure {
 	
 	sf::Sprite wallSprite;
 	sf::IntRect wallTextureRect = sf::IntRect(96, 16, 16, 16);
+	sf::Sprite grassSprite;
+	sf::IntRect grassTextureRect = sf::IntRect(96, 0, 16, 16);
+	sf::Sprite immortalWallSprite;
+	sf::IntRect immortalWallTextureRect = sf::IntRect(112, 16, 16, 16);
+	sf::Sprite waterSprite;
+	sf::IntRect waterTextureRect = sf::IntRect(112, 0, 16, 16);
 
 	sf::Sprite bulletSprite;
 	sf::IntRect bulletTextureRect = sf::IntRect(70, 53, 4, 6);
@@ -48,27 +61,35 @@ namespace Configure {
 
 	int timeToSpawn = 4000;
 
+	float healthBarWidth = 76.0f;
+	float healthBarHeight = 32.0f;
+
 	float explosionWidth = 32.0f;
 
 	float shootingWidth = 48.0f;
 
 	float tankWidth = 48.0f;
 	int tankMaxHp = 100;
-	float tankSpeed = 0.1f;
+	float tankSpeed = 0.2f;
 
 	float wallWidth = 32.0f;
-	int wallMaxHp = 100;
+	int wallMaxHp = 25;
 
 	float bulletWidth = 10.0f;
 	float bulletHeight = 15.0f;
-	int bulletDamage = 100;
+	int bulletDamage = 25;
 	int bulletLifeTime = 3000;
-	float bulletSpeed = 0.2f;
+	float bulletSpeed = 0.4f;
 
-	int gunReloadTime = 500;
+	int gunReloadTime = 300;
 
 	int mapWidth = 50;
 	int mapHeight = 30;
+
+	float mapWallsFill = 0.5f;
+	float mapImmortalWallsFill = 0.4f;
+	float mapWaterFill = 0.4f;
+	float mapGrassFill = 0.4f;
 	
 	void Init(sf::RenderWindow& window)
 	{
@@ -82,11 +103,20 @@ namespace Configure {
 			window.setView(view);
 
 			setSprite(tankSprite, tankTextureRect, tankWidth, tankWidth);
+			
 			setSprite(wallSprite, wallTextureRect, wallWidth, wallWidth);
+			setSprite(grassSprite, grassTextureRect, wallWidth, wallWidth);
+			setSprite(immortalWallSprite, immortalWallTextureRect, wallWidth, wallWidth);
+			setSprite(waterSprite, waterTextureRect, wallWidth, wallWidth);
+
 			setSprite(bulletSprite, bulletTextureRect, bulletWidth, bulletHeight);
 			setSprite(floorSprite, floorTextureRect, wallWidth, wallWidth);
 			setSprite(shootingSprite, shootingSpriteRect, shootingWidth, shootingWidth);
 			setSprite(explosionSprite, explosionSpriteRect, explosionWidth, explosionWidth);
+
+			setSprite(healthBarSprite, healthBarTextureRect, healthBarWidth, healthBarHeight);
+			setSprite(healthRedSprite, healthRedTextureRect, healthBarWidth, healthBarHeight);
+			setSprite(healthGreenSprite, healthGreenTextureRect, healthBarWidth, healthBarHeight);
 		}
 	}
 

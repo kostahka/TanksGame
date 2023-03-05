@@ -4,8 +4,7 @@ GameObject::GameObject(float width, float height, int maxHp, sf::Sprite sprite, 
 	:rect(sf::FloatRect(x, y, width, height)), maxHp(maxHp), isImmortal(isImmortal)
 {
 	hp = maxHp;
-	this->sprite = sprite;
-	this->sprite.setPosition(x + width / 2, y + height / 2);
+	SetSprite(sprite);
 }
 
 bool GameObject::Hurt(int damage)
@@ -28,6 +27,12 @@ void GameObject::Draw(sf::RenderWindow& window)
 int GameObject::getHp() const
 {
 	return hp;
+}
+
+void GameObject::SetSprite(sf::Sprite sprite)
+{
+	this->sprite = sprite;
+	this->sprite.setPosition(rect.left + rect.width / 2, rect.top + rect.height / 2);
 }
 
 void GameObject::Destroy()

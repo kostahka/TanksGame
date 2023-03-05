@@ -3,7 +3,7 @@
 #include <math.h>
 
 namespace Physics {
-	MapElement GameObjectMapCollision(sf::FloatRect A, Map & map) {
+	MapElement GameObjectMapCollision(sf::FloatRect A, Map & map, bool isTank) {
 		int left = floor(A.left / Configure::wallWidth);
 		int top = floor(A.top / Configure::wallWidth);
 		int width = ceil((A.left + A.width) / Configure::wallWidth) - left;
@@ -19,6 +19,15 @@ namespace Physics {
 			for (int j = left >= 0 ? left : 0; (j < left + width) && (j < map.getWidth()); j++) {
 				if (map[i][j])
 					return MapElement{i, j, true};
+			}
+		}
+
+		if (isTank) {
+			for (int i = top >= 0 ? top : 0; (i < top + height) && (i < map.getHeight()); i++) {
+				for (int j = left >= 0 ? left : 0; (j < left + width) && (j < map.getWidth()); j++) {
+					if (map.getSea(i, j))
+						return MapElement{ i, j, true };
+				}
 			}
 		}
 
@@ -41,7 +50,7 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 			bool move = true;
 
 			sf::FloatRect newRect = tanks[i]->getMoved(deltaTime);
-			MapElement element = GameObjectMapCollision(newRect, map);
+			MapElement element = GameObjectMapCollision(newRect, map, true);
 			if (!element.collide) {
 				for (int j = 0; j < tanks.size(); j++) {
 					if (i != j)
@@ -67,7 +76,7 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 	while (i < bullets.size()) {
 		bullets[i]->Move(deltaTime);
 
-		MapElement element = GameObjectMapCollision(bullets[i]->rect, map);
+		MapElement element = GameObjectMapCollision(bullets[i]->rect, map, false);
 		if (element.collide) {
 			if(element.column != -1)
 				map.Hurt(bullets[i]->getHp(), element.row, element.column);
