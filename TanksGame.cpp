@@ -19,6 +19,7 @@ int main()
     sf::VideoMode currentMode = modes[0];
 
     sf::RenderWindow window(currentMode, "Tanks", sf::Style::Fullscreen);
+    window.setVerticalSyncEnabled(true);
 
     Configure::Init(window);
     TimeManager* timeManager = TimeManager::getCurrent();
