@@ -35,6 +35,7 @@ set(PROJECT_SOURCES
 	"Managers/IOListener.cpp"
 	"GameObjects/Spawner.cpp"
 	"GUI/HealthBar.cpp"
+	"Controllers/AIController.cpp"
 	
 	"TanksGame.h"
 	"GameObjects/Tank.h"
@@ -60,6 +61,7 @@ set(PROJECT_SOURCES
 	"Managers/IOListener.h"
 	"GameObjects/Spawner.h"
 	"GUI/HealthBar.h"
+	"Controllers/AIController.h"
 
 )
 

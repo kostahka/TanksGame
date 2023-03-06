@@ -83,6 +83,8 @@ namespace Configure {
 	extern int bulletLifeTime;
 	extern float bulletSpeed;
 
+	extern float bulletExplosionRadius;
+
 	extern int gunReloadTime;
 
 	const int mapWidthStart = 40;
@@ -95,6 +97,9 @@ namespace Configure {
 	extern float mapImmortalWallsFill;
 	extern float mapWaterFill;
 	extern float mapGrassFill;
+
+	extern int AIProcessMinTime;
+	extern int AIProcessMaxTime;
 
 	const bool map[mapHeightStart][mapWidthStart]{ 
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

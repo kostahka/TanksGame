@@ -78,8 +78,10 @@ namespace Configure {
 	float bulletWidth = 10.0f;
 	float bulletHeight = 15.0f;
 	int bulletDamage = 25;
-	int bulletLifeTime = 3000;
+	int bulletLifeTime = 1500;
 	float bulletSpeed = 0.4f;
+
+	float bulletExplosionRadius = 14.0f;
 
 	int gunReloadTime = 300;
 
@@ -90,6 +92,9 @@ namespace Configure {
 	float mapImmortalWallsFill = 0.4f;
 	float mapWaterFill = 0.4f;
 	float mapGrassFill = 0.4f;
+
+	int AIProcessMinTime = 100;
+	int AIProcessMaxTime = 1500;
 	
 	void Init(sf::RenderWindow& window)
 	{
@@ -117,6 +122,8 @@ namespace Configure {
 			setSprite(healthBarSprite, healthBarTextureRect, healthBarWidth, healthBarHeight);
 			setSprite(healthRedSprite, healthRedTextureRect, healthBarWidth, healthBarHeight);
 			setSprite(healthGreenSprite, healthGreenTextureRect, healthBarWidth, healthBarHeight);
+
+			floorSprite.setColor(sf::Color(155, 155, 155));
 		}
 	}
 

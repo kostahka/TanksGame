@@ -3,7 +3,7 @@
 #include <math.h>
 
 namespace Physics {
-	MapElement GameObjectMapCollision(sf::FloatRect A, Map & map, bool isTank) {
+	bool GameObjectMapCollision(sf::FloatRect A, Map & map, bool isTank) {
 		int left = floor(A.left / Configure::wallWidth);
 		int top = floor(A.top / Configure::wallWidth);
 		int width = ceil((A.left + A.width) / Configure::wallWidth) - left;
@@ -12,13 +12,13 @@ namespace Physics {
 		if (left < 0 || top < 0 ||
 			left + width > map.getWidth() || top + height > map.getHeight())
 		{
-			return MapElement{-1, -1, true};
+			return true;
 		}
 
 		for (int i = top >= 0 ? top : 0; (i < top + height) && (i < map.getHeight()); i++) {
 			for (int j = left >= 0 ? left : 0; (j < left + width) && (j < map.getWidth()); j++) {
 				if (map[i][j])
-					return MapElement{i, j, true};
+					return true;
 			}
 		}
 
@@ -26,12 +26,12 @@ namespace Physics {
 			for (int i = top >= 0 ? top : 0; (i < top + height) && (i < map.getHeight()); i++) {
 				for (int j = left >= 0 ? left : 0; (j < left + width) && (j < map.getWidth()); j++) {
 					if (map.getSea(i, j))
-						return MapElement{ i, j, true };
+						return true;
 				}
 			}
 		}
 
-		return MapElement{-1, -1, false};
+		return false;
 	}
 
 	bool GameObjectsCollision(sf::FloatRect A, sf::FloatRect B) {
@@ -50,8 +50,7 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 			bool move = true;
 
 			sf::FloatRect newRect = tanks[i]->getMoved(deltaTime);
-			MapElement element = GameObjectMapCollision(newRect, map, true);
-			if (!element.collide) {
+			if (!GameObjectMapCollision(newRect, map, true)) {
 				for (int j = 0; j < tanks.size(); j++) {
 					if (i != j)
 						if (GameObjectsCollision(newRect, tanks[j]->rect)) {
@@ -76,10 +75,9 @@ void Physics::CalculatePhysics(Map& map, std::vector<Tank*>& tanks, std::vector<
 	while (i < bullets.size()) {
 		bullets[i]->Move(deltaTime);
 
-		MapElement element = GameObjectMapCollision(bullets[i]->rect, map, false);
-		if (element.collide) {
-			if(element.column != -1)
-				map.Hurt(bullets[i]->getHp(), element.row, element.column);
+		if (GameObjectMapCollision(bullets[i]->rect, map, false)) {
+			map.Hurt(bullets[i]->getHp(), bullets[i]->rect.left + bullets[i]->rect.width / 2,
+				bullets[i]->rect.top + bullets[i]->rect.height / 2);
 
 			bullets[i]->Hurt();
 			continue;

@@ -22,6 +22,7 @@ void GameScene::StartOnePlayer()
 {
 	PlayerController* player = new PlayerController(PlayerType::FirstPlayer);
 	SpawnTank(player);
+	AddBots(4);
 }
 
 void GameScene::StartTwoPlayers()
@@ -30,6 +31,7 @@ void GameScene::StartTwoPlayers()
 	SpawnTank(player);
 	PlayerController* secondPlayer = new PlayerController(PlayerType::SecondPlayer);
 	SpawnTank(secondPlayer);
+	AddBots(4);
 }
 
 void GameScene::Draw(sf::RenderWindow& window, int deltaTime)
@@ -129,5 +131,13 @@ void GameScene::Restart()
 	}
 	while (bullets.size() > 0) {
 		bullets[0]->Destroy();
+	}
+}
+
+void GameScene::AddBots(int count)
+{
+	AIController* ais = new AIController[count];
+	for (int i = 0; i < count; i++) {
+		SpawnTank(&ais[i]);
 	}
 }

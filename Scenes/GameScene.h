@@ -12,6 +12,7 @@
 #include "../Managers/IOListener.h"
 #include "../GameObjects/Spawner.h"
 #include "../General/TankType.h"
+#include "../Controllers/AIController.h"
 
 class GameScene : public Scene , public IOListener{
 public:
@@ -43,6 +44,7 @@ public:
 private:
 	void SpawnTank(Controller* controller);
 	void Restart();
+	void AddBots(int count);
 
 	std::vector<Particles*> particles;
 	std::vector<Controller*> controllers;

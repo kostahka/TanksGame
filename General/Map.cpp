@@ -6,7 +6,7 @@
 Map::Map()
 	:width(Configure::mapWidth), height(Configure::mapHeight)
 {
-	floor = Configure::floorSprite;
+	floorSprite = Configure::floorSprite;
 
 	map = new bool* [height];
 	sea = new bool* [height];
@@ -130,8 +130,8 @@ void Map::Draw(sf::RenderWindow& window)
 			if (walls[i][j] && walls[i][j]->getType() != WallType::Grass)
 				walls[i][j]->Draw(window);
 			else {
-				floor.setPosition(sf::Vector2f((j+0.5) * Configure::wallWidth, (i+0.5)*Configure::wallWidth));
-				window.draw(floor);
+				floorSprite.setPosition(sf::Vector2f((j+0.5) * Configure::wallWidth, (i+0.5)*Configure::wallWidth));
+				window.draw(floorSprite);
 			}	
 		}
 	}
@@ -147,12 +147,25 @@ void Map::DrawForeGround(sf::RenderWindow& window)
 	}
 }
 
-void Map::Hurt(int damage, int row, int column)
+void Map::Hurt(int damage, float x, float y)
 {
- 	if (walls[row][column]->Hurt(damage)) {
+	int left = floor((x - Configure::bulletExplosionRadius) / Configure::wallWidth);
+	int top = floor((y - Configure::bulletExplosionRadius) / Configure::wallWidth);
+	int exWidth = ceil(2 * Configure::bulletExplosionRadius / Configure::wallWidth);
+	int exHeight = exWidth;
+	for (int i = top >= 0 ? top : 0; i <= top + exHeight && i < height; i++) {
+		for (int j = left >= 0 ? left : 0; j <= left + exWidth && j < width; j++) {
+			if (walls[i][j])
+				if (walls[i][j]->Hurt(damage)) {
+					walls[i][j] = nullptr;
+					map[i][j] = false;
+				}
+		}
+	}
+ 	/*if (walls[row][column]->Hurt(damage)) {
 		walls[row][column] = nullptr;
 		map[row][column] = false;
-	}
+	}*/
 }
 
 sf::Vector2f Map::getRandomPlaceToSpawn()

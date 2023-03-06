@@ -3,12 +3,6 @@
 #include "../Configurations/Configure.h"
 #include "../GameObjects/Wall.h"
 
-struct MapElement {
-	int row;
-	int column;
-	bool collide;
-};
-
 class Map {
 public:
 	Map();
@@ -21,7 +15,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void DrawForeGround(sf::RenderWindow& window);
 
-	void Hurt(int damage, int row, int column);
+	void Hurt(int damage, float x, float y);
 
 	sf::Vector2f getRandomPlaceToSpawn();
 
@@ -33,7 +27,7 @@ private:
 	int width;
 	int height;
 
-	sf::Sprite floor;
+	sf::Sprite floorSprite;
 	Wall*** walls;
 	bool** sea;
 	bool** map;
