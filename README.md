@@ -31,7 +31,7 @@ Controlls:
      
      Move left - Arrow left
      
-     Shoot - Num0
+     Shoot - Numpad0
      
    General:
    
